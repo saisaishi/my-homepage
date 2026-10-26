@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>石赛赛 · 个人学术主页</title>
+  <style>
+    /* ===== 设计变量 ===== */
+    :root {
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a68;
+      --text-muted: #6b7280;
+      --bg-page: #f8f9fb;
+      --bg-card: #ffffff;
+      --accent: #1e3a5f;
+      --accent-light: #e8edf3;
+      --border: #e2e6ec;
+      --radius: 12px;
+      --max-width: 920px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      --font-serif: "Noto Serif SC", "Songti SC", Georgia, serif;
+    }
+
+    /* ===== 基础重置 ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== 页面容器 ===== */
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ===== 头部名片 ===== */
+    .profile-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      flex-shrink: 0;
+      font-family: var(--font-serif);
+    }
+
+    .profile-main { flex: 1; min-width: 260px; }
+
+    .profile-name {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .profile-title {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .profile-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .meta-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== 简介 ===== */
+    .bio {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 36px;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+
+    /* ===== 内容区块 ===== */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--accent-light);
+      margin-bottom: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== 列表条目 ===== */
+    .entry-list { list-style: none; }
+
+    .entry {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+    }
+
+    .entry:last-child { border-bottom: none; padding-bottom: 0; }
+    .entry:first-child { padding-top: 0; }
+
+    .entry strong { color: var(--text-primary); font-weight: 600; }
+
+    .entry-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--accent-light);
+      color: var(--accent);
+      margin-left: 8px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .entry-note {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ===== 课程标签 ===== */
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .course-list li {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    /* ===== 论文引用 ===== */
+    .pub-entry {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .pub-entry:last-child { border-bottom: none; }
+    .pub-entry:first-child { padding-top: 0; }
+
+    .pub-authors { color: var(--text-primary); font-weight: 600; }
+    .pub-title { color: var(--accent); font-style: italic; }
+    .pub-venue { color: var(--text-muted); }
+
+    /* ===== 页脚 ===== */
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 640px) {
+      .page { padding: 24px 16px 64px; }
+      .profile-header { padding: 28px 24px; flex-direction: column; align-items: center; text-align: center; }
+      .profile-meta { justify-content: center; }
+      .profile-name { font-size: 1.6rem; }
+      .section, .bio { padding: 24px 20px; }
+      .section-title { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ===== 头部名片 ===== -->
+    <header class="profile-header">
+      <div class="avatar" aria-hidden="true">石</div>
+      <div class="profile-main">
+        <h1 class="profile-name">石赛赛</h1>
+        <p class="profile-title">讲师 · 博士 · 安徽财经大学</p>
+        <div class="profile-meta">
+          <span><span class="meta-label">邮箱</span> saisai_shi@126.com</span>
+          <span><span class="meta-label">专业</span> 基础数学</span>
+          <span><span class="meta-label">方向</span> 分形几何与动力系统</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== 个人简介 ===== -->
+    <div class="bio">
+      石赛赛，男，1993年7月生，江苏徐州人，毕业于华中科技大学基础数学专业，数学博士。现为安徽财经大学特聘副教授、讲师。研究领域与方向为分形几何与动力系统。
+    </div>
+
+    <!-- ===== 主讲课程 ===== -->
+    <section class="section">
+      <h2 class="section-title">主讲课程</h2>
+      <ul class="course-list">
+        <li>数学分析</li>
+        <li>实变函数</li>
+        <li>拓扑学</li>
+      </ul>
+    </section>
+
+    <!-- ===== 科研项目 ===== -->
+    <section class="section">
+      <h2 class="section-title">科研项目</h2>
+      <ul class="entry-list">
+        <li class="entry">
+          <strong>测度混合系统中轨道逼近问题的研究</strong>
+          <span class="entry-tag">主持 · 在研</span>
+          <span class="entry-note">国家自然科学基金青年项目（12501109）</span>
+        </li>
+        <li class="entry">
+          <strong>共形系统中移动收缩靶问题探究</strong>
+          <span class="entry-tag">主持 · 在研</span>
+          <span class="entry-note">安徽省教育厅高校自然科学研究重点项目（2024AH050016）</span>
+        </li>
+        <li class="entry">
+          <strong>类高斯迭代函数系统中的丢番图逼近问题研究</strong>
+          <span class="entry-tag">主持 · 结项</span>
+          <span class="entry-note">安徽财经大学校级研究项目（ACKYC22084）</span>
+        </li>
+        <li class="entry">
+          <strong>分形集的丢番图逼近问题与算术结构的研究</strong>
+          <span class="entry-tag">参与 · 在研</span>
+          <span class="entry-note">国家自然科学基金面上项目（12171172）</span>
+        </li>
+        <li class="entry">
+          <strong>分形函数的普适性和 Fourier 分析</strong>
+          <span class="entry-tag">参与 · 在研</span>
+          <span class="entry-note">安徽省教育厅高校自然科学研究重点项目（2023AH050264）</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 教研项目 ===== -->
+    <section class="section">
+      <h2 class="section-title">教研项目</h2>
+      <ul class="entry-list">
+        <li class="entry">
+          <strong>基于数学竞赛的数学分析课程改革研究</strong>
+          <span class="entry-tag">主持 · 在研</span>
+          <span class="entry-note">安徽财经大学 2025 年校级教学研究重点项目（acjyzd2025015）</span>
+        </li>
+        <li class="entry">
+          <strong>数学分析教学改革与创新能力培养</strong>
+          <span class="entry-tag">主持 · 结项</span>
+          <span class="entry-note">安徽财经大学 2022 年校级质量工程项目（acjyyb2022070）</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 论文 ===== -->
+    <section class="section">
+      <h2 class="section-title">论文</h2>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Shi, Saisai; Tan, Bo; Zhou, Qinglong.</span>
+        <span class="pub-title">Growth rate of digits in a Gauss-like IFS.</span>
+        <span class="pub-venue">Acta Mathematica Scientia, 2026, 45B(2): 1–19.</span>
+      </div>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Shi, Saisai.</span>
+        <span class="pub-title">A note on the growth rate of Engel digits.</span>
+        <span class="pub-venue">Commun. Korean Math. Soc., 2026, 41(1): 79–84.</span>
+      </div>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Liu, Jia; Shi, Saisai.</span>
+        <span class="pub-title">Shortest distance between partial orbits.</span>
+        <span class="pub-venue">Discrete and Continuous Dynamical Systems-S, 2026.</span>
+      </div>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Shi, Saisai; Liu, Jia; Zhang, Yuan.</span>
+        <span class="pub-title">Shrinking target problems in d-decaying Gauss-like iterated function systems.</span>
+        <span class="pub-venue">J. Math. Anal. Appl., 2025, 541: 128680.</span>
+      </div>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Shi, Saisai; Zhou, Qinglong.</span>
+        <span class="pub-title">On the shortest distance function in Continued fraction.</span>
+        <span class="pub-venue">Bull. Aust. Math. Soc., 2023, 0: 1–10.</span>
+      </div>
+
+      <div class="pub-entry">
+        <span class="pub-authors">Shi, Saisai; Tan, Bo; Zhou, Qinglong.</span>
+        <span class="pub-title">Best approximation of orbits in iterated function systems.</span>
+        <span class="pub-venue">Discrete Contin. Dyn. Syst., 2021, 41(9): 4085–4104.</span>
+      </div>
+    </section>
+
+    <!-- ===== 获奖情况 ===== -->
+    <section class="section">
+      <h2 class="section-title">获奖情况</h2>
+      <ul class="entry-list">
+        <li class="entry">
+          2025 年指导学生获 <strong>第十七届全国大学生数学竞赛非数学 B 类二等奖</strong> 一项。
+        </li>
+        <li class="entry">
+          2024 年指导学生获 <strong>第十六届全国大学生数学竞赛非数学 A 类一等奖</strong> 一项、<strong>数学 B 类三等奖</strong> 一项。
+        </li>
+        <li class="entry">
+          2022 年指导学生获 <strong>第十四届全国大学生数学竞赛数学 B 类二等奖</strong> 一项。
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 页脚 ===== -->
+    <footer class="footer">
+      石赛赛 · 安徽财经大学 · 最后更新于 2026 年
+    </footer>
+
+  </div>
+</body>
+</html>
